@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="MovimentoDestino" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     saida.`idsaida` AS saida_idsaida,
+     saida.`dataRetirada` AS saida_dataRetirada,
+     saida.`destino_idDestino` AS saida_destino_idDestino,
+     saidaitem.`idsaidaItem` AS saidaitem_idsaidaItem,
+     saidaitem.`quantidade` AS saidaitem_quantidade,
+     saidaitem.`produto_idproduto` AS saidaitem_produto_idproduto,
+     saidaitem.`saida_idsaida` AS saidaitem_saida_idsaida,
+     destino.`idDestino` AS destino_idDestino,
+     destino.`descDestino` AS destino_descDestino,
+     produto.`idproduto` AS produto_idproduto,
+     produto.`descProduto` AS produto_descProduto,
+     produto.`quantidade` AS produto_quantidade,
+     produto.`concentracao` AS produto_concentracao
+FROM
+     `saida` saida INNER JOIN `saidaitem` saidaitem ON saida.`idsaida` = saidaitem.`saida_idsaida`
+     INNER JOIN `destino` destino ON saida.`destino_idDestino` = destino.`idDestino`
+     INNER JOIN `produto` produto ON saidaitem.`produto_idproduto` = produto.`idproduto` WHERE saida.dataRetirada between '2011/01/01' and '2011/12/01' ORDER BY saida.dataRetirada]]>
+	</queryString>
+	<field name="saida_idsaida" class="java.lang.Integer"/>
+	<field name="saida_dataRetirada" class="java.sql.Date"/>
+	<field name="saida_destino_idDestino" class="java.lang.Integer"/>
+	<field name="saidaitem_idsaidaItem" class="java.lang.Integer"/>
+	<field name="saidaitem_quantidade" class="java.lang.Integer"/>
+	<field name="saidaitem_produto_idproduto" class="java.lang.Integer"/>
+	<field name="saidaitem_saida_idsaida" class="java.lang.Integer"/>
+	<field name="destino_idDestino" class="java.lang.Integer"/>
+	<field name="destino_descDestino" class="java.lang.String"/>
+	<field name="produto_idproduto" class="java.lang.Integer"/>
+	<field name="produto_descProduto" class="java.lang.String"/>
+	<field name="produto_quantidade" class="java.lang.Integer"/>
+	<field name="produto_concentracao" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="180" y="30" width="374" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Movimentos por Destino]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="214" height="79"/>
+				<imageExpression><![CDATA["C:\\Medical Drugs\\jasper\\Logo1.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="55" height="20"/>
+				<textElement/>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="0" width="152" height="20"/>
+				<textElement/>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="0" width="140" height="20"/>
+				<textElement/>
+				<text><![CDATA[Armazém]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="494" y="0" width="61" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Quantidade]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="347" y="0" width="144" height="20"/>
+				<textElement/>
+				<text><![CDATA[Nome comercial]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="55" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{saida_dataRetirada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="55" y="0" width="140" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{destino_descDestino}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="0" width="152" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{produto_descProduto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="493" y="0" width="61" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{produto_quantidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="347" y="0" width="145" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{produto_concentracao}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="524" y="32" width="29" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" "+$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="32" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="447" y="32" width="57" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
