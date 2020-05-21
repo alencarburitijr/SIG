@@ -127,6 +127,7 @@ public class SaidaEstoqueGUI extends javax.swing.JFrame implements SaidaEstoqueG
         jtf_cod_arm = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jRadioConsumo = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Saída de estoque principal");
@@ -355,6 +356,15 @@ public class SaidaEstoqueGUI extends javax.swing.JFrame implements SaidaEstoqueG
         jLabel7.setName("jLabel7"); // NOI18N
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 60, 50));
 
+        jRadioConsumo.setText("Consumo");
+        jRadioConsumo.setName("jRadioConsumo"); // NOI18N
+        jRadioConsumo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioConsumoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jRadioConsumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, -1, -1));
+
         setSize(new java.awt.Dimension(496, 533));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -544,6 +554,18 @@ private void jtf_quantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
     jb_adicionar.requestFocus();
     // TODO add your handling code here:
 }//GEN-LAST:event_jtf_quantidadeFocusLost
+    private boolean consumo;
+    private void jRadioConsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioConsumoActionPerformed
+        if(jRadioConsumo.isSelected()){
+            jtf_armazem.setEnabled(false);
+            jb_destino.setEnabled(false);
+            consumo = true;
+        }else if(jRadioConsumo.isSelected() != true){
+            jtf_armazem.setEnabled(true);
+            jb_destino.setEnabled(true);
+            consumo = false;
+        }
+    }//GEN-LAST:event_jRadioConsumoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -566,6 +588,7 @@ private void jtf_quantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JRadioButton jRadioConsumo;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton jb_adicionar;
@@ -638,8 +661,15 @@ private void jtf_quantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
                 }
                 //SaidaDAO controlaSaida = new SaidaDAO();
                 //controlSaida.limparTabela();
-
-                saida.setDestino(armazem);
+                if(jRadioConsumo.isSelected() != true){
+                    saida.setDestino(armazem);
+                }else if(jRadioConsumo.isSelected()){
+                    ArmazemModel armazemVazio = new ArmazemModel();
+                    armazemVazio.setCod_destino(0);
+                    armazemVazio.setDesc_destino("Consumo");
+                    saida.setDestino(armazemVazio);                    
+                }
+              
                 saida.setDataSaida(new SimpleDateFormat("dd/MM/yyyy").parse(jftf_data.getText()));                               
                 // saida.setItensSaida(itens);
                 //  controlSaida.cadastraSaida(saida);
@@ -649,7 +679,7 @@ private void jtf_quantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
                     controlSaida.saidaItem(itens, saida);
                 //    controlSaida.implementaArmazem(itens, saida);
                     controlSaida.baixarEstoque(itens);
-                    controlSaida.consultaQuantidade(itens,saida);
+                    controlSaida.consultaQuantidade(itens,saida,consumo);
                     JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
 //                Relatorios relatorio = new Relatorios();
 //                relatorio.relatorioSaida();
@@ -671,8 +701,8 @@ private void jtf_quantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
     private boolean verificaCampos() {
         String msgERRO = "Preencha os campos obrigatórios:\n";
 
-        if (jtf_cod_arm.getText().equals("")) {
-            msgERRO = msgERRO + " *Armazém\n";
+        if (jtf_cod_arm.getText().equals("") && jRadioConsumo.isSelected() != true) {
+            msgERRO = msgERRO + " *Almoxarifado\n";
         }
         if (jftf_data.getText().equals("  /  /    ")) {
             msgERRO = msgERRO + " *Data de saída\n";
@@ -797,9 +827,9 @@ private void jtf_quantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
     ArmazemModel armazem;
 
     public void carregaDestino(ArmazemModel armazem) {
-        this.armazem = armazem;
+        this.armazem = armazem;      
         jtf_cod_arm.setText(String.valueOf(armazem.getCod_destino()));
         jtf_armazem.setText(armazem.getDesc_destino());
-        jtf_produto.requestFocus();
-    }           
+        jtf_produto.requestFocus();                
+    }
 }

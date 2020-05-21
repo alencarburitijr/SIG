@@ -7,8 +7,10 @@ package br.com.sig.dao;
 
 import br.com.medicalpharm.model.VeiculoModel;
 import br.com.sig.util.Conexao;
+import com.mysql.jdbc.MysqlDataTruncation;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLDataException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -35,7 +37,8 @@ public class VeiculoDAO {
             switch(parametro){
                 case 0:listaVeiculos += "codigo LIKE ?";break;
                 case 1:listaVeiculos += "descricao LIKE ?";break;
-                case 2:listaVeiculos += "chassi LIKE ?";break;                
+                case 2:listaVeiculos += "chassi LIKE ?";break;    
+                case 3:listaVeiculos += "placa LIKE ?";break;
             }
             pstm = (PreparedStatement) conexao.conecta().prepareStatement(listaVeiculos);
             pstm.setString(1,"%"+nomePesquisa+"%");
@@ -56,7 +59,7 @@ public class VeiculoDAO {
         return veiculo;
     }
     
-    public void cadastarVeiculo(VeiculoModel veiculo,boolean editar){
+    public boolean cadastarVeiculo(VeiculoModel veiculo,boolean editar){
         if(editar){
             cadastrarVeiculo = editarVeiculo;
         }
@@ -72,9 +75,16 @@ public class VeiculoDAO {
             }
             pstm.executeUpdate();
             conexao.desconecta();
+            return true;
+        }catch(MysqlDataTruncation sqlEx){           
+            JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar novo veiculo.\n"+
+                                                "*Dados muito longos");
+            
+            return false;
         }catch(Exception ex){
-            JOptionPane.showMessageDialog(null, "Não foi possivel cadastrar novo veiculo");
-        }
+            System.err.println("Ocorreu um erro.");
+            return false;
+        }                                        
     }
     
     private void burcarChassi(){
@@ -99,7 +109,7 @@ public class VeiculoDAO {
             }
             conexao.desconecta();
         }catch(Exception ex){
-             //JOptionPane.showMessageDialog(null, "Não foi possivel listar os veiculos:"+ex);
+            JOptionPane.showMessageDialog(null, "Não foi possivel listar os veiculos:"+ex);
         }
         return false;
     }

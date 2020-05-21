@@ -267,21 +267,25 @@ public class VeiculoCadastrarEditar extends javax.swing.JFrame {
                     veiculo.setPlaca(jtf_placa.getText());
 
                     VeiculoDAO novoVeiculo = new VeiculoDAO();        
-                    novoVeiculo.cadastarVeiculo(veiculo,update);
-
-                    if(telaPai != null){
-                        telaPai.listarVeiculos(0);
-                        telaPai.setEnabled(true);
-                    }else{
-                        telaPai2.listarVeiculos("");
-                        telaPai2.setEnabled(true);
+                    boolean resposta = novoVeiculo.cadastarVeiculo(veiculo,update);
+                    
+                    if(resposta){
+                        if(telaPai != null){
+                            telaPai.listarVeiculos(0);
+                            telaPai.setEnabled(true);
+                        }else{
+                            telaPai2.listarVeiculos("");
+                            telaPai2.setEnabled(true);
+                        }
+                        
+                        if(update){
+                            JOptionPane.showMessageDialog(null, "Alterações salvas");                
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Cadastro concluido");
+                        }            
+                        setVisible(false);
                     }
-                    if(update){
-                        JOptionPane.showMessageDialog(null, "Alterações salvas");                
-                    }else{
-                        JOptionPane.showMessageDialog(null, "Cadastro concluido");
-                    }            
-                    setVisible(false);
+                    
                 }
             }
         }catch(Exception ex){

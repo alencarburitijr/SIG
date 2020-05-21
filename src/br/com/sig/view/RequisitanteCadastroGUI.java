@@ -23,6 +23,7 @@ public class RequisitanteCadastroGUI extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        jtf_nome.requestFocus();
         
     }
     RequisitanteGerenciarGUI telaPai;
@@ -244,22 +245,24 @@ public class RequisitanteCadastroGUI extends javax.swing.JFrame {
                 if(update){ usuario.setCodigo_requisitante(Integer.parseInt(tf_codigo.getText()));  }
                 usuario.setNome_requisitante(jtf_nome.getText());
                 usuario.setCpf(jtf_cpf.getText());
+                boolean resposta;
                 if(update){
-                    usuarioControl.alterarUsuarioRequisitante(usuario);
+                    resposta = usuarioControl.alterarUsuarioRequisitante(usuario);
                 }else{
-                    usuarioControl.cadastraUsuarioRequisitante(usuario);    
+                    resposta = usuarioControl.cadastraUsuarioRequisitante(usuario);    
                 }
-                JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
-                if(telaPai != null){
-                    telaPai.setEnabled(true);
-                    telaPai.listarUsuarios(0);
-                    setVisible(false);
-                }else{
-                    telaPai2.setEnabled(true);
-                    telaPai2.listarUsuarios("");
-                    setVisible(false);
+                if(resposta){
+                    JOptionPane.showMessageDialog(null, "Cadastrado com sucesso!");
+                    if(telaPai != null){
+                        telaPai.setEnabled(true);
+                        telaPai.listarUsuarios(0);
+                        setVisible(false);
+                    }else{
+                        telaPai2.setEnabled(true);
+                        telaPai2.listarUsuarios("");
+                        setVisible(false);
+                    }
                 }
-                
             }else{
                 JOptionPane.showMessageDialog(this, "Cpf invalido");
             }

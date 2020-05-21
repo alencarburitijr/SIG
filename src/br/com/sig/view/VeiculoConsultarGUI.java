@@ -49,6 +49,7 @@ public class VeiculoConsultarGUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         tf_pesquisar_veiculo = new java.awt.TextField();
         jButton1 = new javax.swing.JButton();
+        jrb_placa = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consultar Veículos");
@@ -157,6 +158,9 @@ public class VeiculoConsultarGUI extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(jrb_placa);
+        jrb_placa.setText("Placa");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -175,7 +179,10 @@ public class VeiculoConsultarGUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jrb_descricao)
                         .addGap(18, 18, 18)
-                        .addComponent(jrb_chassi)))
+                        .addComponent(jrb_chassi)
+                        .addGap(18, 18, 18)
+                        .addComponent(jrb_placa)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -185,7 +192,8 @@ public class VeiculoConsultarGUI extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jrb_codigo)
                     .addComponent(jrb_descricao)
-                    .addComponent(jrb_chassi))
+                    .addComponent(jrb_chassi)
+                    .addComponent(jrb_placa))
                 .addGap(8, 8, 8)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton1)
@@ -326,6 +334,7 @@ public class VeiculoConsultarGUI extends javax.swing.JFrame {
     private javax.swing.JRadioButton jrb_chassi;
     private javax.swing.JRadioButton jrb_codigo;
     private javax.swing.JRadioButton jrb_descricao;
+    private javax.swing.JRadioButton jrb_placa;
     private java.awt.TextField tf_pesquisar_veiculo;
     // End of variables declaration//GEN-END:variables
     
@@ -368,7 +377,9 @@ public class VeiculoConsultarGUI extends javax.swing.JFrame {
             listarVeiculos(1);
         } else if (jrb_chassi.isSelected() == true) {
             listarVeiculos(2);
-        } else {
+        }else if(jrb_placa.isSelected() == true){
+            listarVeiculos(3);
+        }else {
            listarVeiculos(0);
         }
     } 

@@ -144,13 +144,14 @@ public class SaidaDAO {
             JOptionPane.showMessageDialog(null, "Erro inserir itens na tabela Armazem");
         }
     }
-
+    private String consultaDestinoCodigo2 = "SELECT idsaida, dataRetirada, destino.idDestino, destino.descDestino "
+            + "FROM saida, destino WHERE (idsaida = ?) & (destino_idDestino = 0)";
     public List<SaidaModel> listarDestinoCodigo(String destino) {
         List<SaidaModel> saidas = new ArrayList();
         try {
             ResultSet rs;
             Conexao conexao = new Conexao();
-            pstm = (PreparedStatement) conexao.conecta().prepareStatement(consultaDestinoCodigo);
+            pstm = (PreparedStatement) conexao.conecta().prepareStatement(consultaDestinoCodigo2);
             pstm.setString(1, destino);
             rs = pstm.executeQuery();
           //  rs.absolute(1);
@@ -194,7 +195,7 @@ public class SaidaDAO {
         }
         return saidas;
     }
-
+    
     public List<SaidaModel> listaDestino(String destino) {
         List<SaidaModel> saidas = new ArrayList();
         try {
@@ -206,7 +207,7 @@ public class SaidaDAO {
             //rs.absolute(1);
             SaidaModel sai;
             while (rs.next()) {
-                sai = new SaidaModel();
+                sai = new SaidaModel(); 
                 sai.setDestino(new ArmazemModel(rs.getInt("destino.idDestino"), rs.getString("destino.descDestino")));
                 sai.setDataSaida(rs.getDate("dataRetirada"));
                 sai.setIdsaida(rs.getInt("idSaida"));                
@@ -244,7 +245,7 @@ public class SaidaDAO {
         return itens;
     }
 
-    public void consultaQuantidade(List<SaidaItemModel> itens, SaidaModel destino) {
+    public void consultaQuantidade(List<SaidaItemModel> itens, SaidaModel destino,boolean consumo) {
         List<SaidaItemModel> itensVencimento;
         try {
             String consulta = "SELECT * FROM TbVencimento, produto WHERE (codProduto = ?) and (TbVencimento.codProduto = produto.idproduto) and (TbVencimento.quantidade<>0) ORDER BY data";
@@ -281,7 +282,7 @@ public class SaidaDAO {
 
                     // JOptionPane.showMessageDialog(null, "Cod: "+vencimentoModel.getCodSaida());
                     conexao.desconecta();
-                    darBaixa(saida, itensVencimento,destino);
+                    darBaixa(saida, itensVencimento,destino,consumo);
                 } else {
                     JOptionPane.showMessageDialog(null, "Erro");
                 }
@@ -292,7 +293,7 @@ public class SaidaDAO {
         }
     }
 
-    public void darBaixa(SaidaItemModel saida, List<SaidaItemModel> itensVencimento, SaidaModel destino) {
+    public void darBaixa(SaidaItemModel saida, List<SaidaItemModel> itensVencimento, SaidaModel destino,boolean consumo) {
         try {
 
             int i = 0;
@@ -305,6 +306,7 @@ public class SaidaDAO {
 
                 idVencimento = itensVencimento.get(i).getCodSaida();
                 if (qtd > qtdLista) {
+                    if(consumo != true){
                     //  JOptionPane.showMessageDialog(null, itensVencimento.get(i).getCodSaida());
                     qtd = qtd - qtdLista;
                     Conexao conexao = new Conexao();
@@ -316,7 +318,7 @@ public class SaidaDAO {
                     
                     pstm.setDate(4,(java.sql.Date) itensVencimento.get(i).getVencimento());
                     pstm.executeUpdate();
-                    
+                    }
                     qtdLista = 0;
                     //idVencimento = itensVencimento.get(i).getCodSaida();
                     itensVencimento.get(i).setQuantidade(qtdLista);
@@ -328,7 +330,7 @@ public class SaidaDAO {
 
                     i++;
                 } else {
-
+                    if(consumo != true){
                     qtdLista = qtdLista - qtd;
                     Conexao conexao = new Conexao();
                     pstm = conexao.conecta().prepareStatement(cadastraArmazem);
@@ -339,7 +341,7 @@ public class SaidaDAO {
                     
                     pstm.setDate(4,(java.sql.Date) itensVencimento.get(i).getVencimento());
                     pstm.executeUpdate();
-                    
+                    }
                     qtd = 0;
                     //  JOptionPane.showMessageDialog(null, itensVencimento.get(i).getCodSaida());
                     //idVencimento = itensVencimento.get(i).getCodSaida();
@@ -348,7 +350,7 @@ public class SaidaDAO {
                     //JOptionPane.showMessageDialog(null,idVencimento);
                     salvarBaixa1(qtdLista, idVencimento);
                     i++;
-
+                    
                 }
             }
         } catch (Exception erro) {

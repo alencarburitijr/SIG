@@ -7,6 +7,7 @@ package br.com.sig.relatorios;
 
 import br.com.medicalpharm.model.ArmazemModel;
 import br.com.medicalpharm.model.GrupoModel;
+import br.com.sig.properties.Configuration;
 import br.com.sig.util.Conexao;
 import com.mysql.jdbc.PreparedStatement;
 import java.sql.*;
@@ -29,7 +30,14 @@ import net.sf.jasperreports.view.JasperViewer;
 public class Relatorios {
 PreparedStatement pstm;
 ResultSet rs;
-private final String url = "C:/SIG/jasper/";
+private final String url;
+    public Relatorios(){
+        
+        Configuration config = new Configuration();
+        url  = config.configuration("prop.relatorio.url");
+        System.out.println("pegando url:    "+url);
+    }
+//private final String url = "C:/SIG/jasper/";
 
     public void setRelatorioEstoqueProduto(){
         try{
