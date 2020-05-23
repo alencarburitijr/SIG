@@ -71,6 +71,7 @@ public class SaidaGUI extends javax.swing.JFrame {
         jl_pesquisar_destino = new javax.swing.JLabel();
         jb_buscar = new javax.swing.JButton();
         jtf_pesquisar = new javax.swing.JTextField();
+        jrb_consumo = new javax.swing.JRadioButton();
         jb_sair = new javax.swing.JButton();
         jb_novo = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -131,6 +132,11 @@ public class SaidaGUI extends javax.swing.JFrame {
 
         jtf_pesquisar.setName("jtf_pesquisar"); // NOI18N
         jPanel1.add(jtf_pesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 300, 20));
+
+        buttonGroup1.add(jrb_consumo);
+        jrb_consumo.setText("Consumo");
+        jrb_consumo.setName("jrb_consumo"); // NOI18N
+        jPanel1.add(jrb_consumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 27, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 466, 120));
 
@@ -244,14 +250,17 @@ public class SaidaGUI extends javax.swing.JFrame {
             }// </editor-fold>//GEN-END:initComponents
 
     private void jb_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_buscarActionPerformed
-
-        if (jrb_codigo.isSelected() == true) {
+       
+        
+        if (jrb_codigo.isSelected() == true ) {
             listarDestinoCodigo();
         } else if (jrb_descricao.isSelected() == true) {
             ListarDestinoDescricao();
         } else if (jrb_detalhado.isSelected() == true) {
             listaDestino();
-        } else {
+        }else if(jrb_consumo.isSelected() == true){
+            listaConsumo(1);
+        }else {
             listaDestino();
         }
 }//GEN-LAST:event_jb_buscarActionPerformed
@@ -285,7 +294,6 @@ public class SaidaGUI extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
-
             public void run() {
                 new SaidaGUI().setVisible(true);
             }
@@ -303,6 +311,7 @@ public class SaidaGUI extends javax.swing.JFrame {
     private javax.swing.JButton jb_sair;
     private javax.swing.JLabel jl_pesquisar_destino;
     private javax.swing.JRadioButton jrb_codigo;
+    private javax.swing.JRadioButton jrb_consumo;
     private javax.swing.JRadioButton jrb_descricao;
     private javax.swing.JRadioButton jrb_detalhado;
     private javax.swing.JTextField jtf_pesquisar;
@@ -316,7 +325,7 @@ public class SaidaGUI extends javax.swing.JFrame {
     void request() {
         jtf_pesquisar.requestFocus();
     }
-
+    
     private void listarDestinoCodigo() {
         if (jtf_pesquisar.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Informe um código");
@@ -335,11 +344,15 @@ public class SaidaGUI extends javax.swing.JFrame {
 
     public void listaDestino() {
         SaidaDAO controlSaida = new SaidaDAO();
-        saidas = controlSaida.listaDestino("%" + jtf_pesquisar.getText().trim() + "%");
+        saidas = controlSaida.listaDestino("%" + jtf_pesquisar.getText().trim() + "%");        
         mostrarDestino(saidas);
 
     }
-
+    public void listaConsumo(int i){
+        SaidaDAO controlSaida = new SaidaDAO();        
+        saidas = controlSaida.listaConsumo("0");                   
+        mostrarDestino(saidas);
+    }
     public void mostrarDestino(List<SaidaModel> saidas) {
         DefaultTableModel tableModel = (DefaultTableModel) jTable2.getModel();
         tableModel.setNumRows(0);

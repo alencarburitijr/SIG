@@ -37,6 +37,7 @@ public class SaidaDAO {
             + "FROM saida, destino WHERE (idsaida = ?) & (destino.idDestino = destino_idDestino)";
     private String consultaItem = "SELECT idsaidaItem,  produto.idproduto, produto.descProduto, produto.concentracao,"
             + " saida_idsaida, saidaitem.quantidade FROM saidaitem, produto WHERE (saida_idsaida = ?) & ( produto.idproduto = produto_idproduto )";
+    private String consultarConsumo = "SELECT idsaida, dataRetirada FROM saida WHERE saida.destino_idDestino = ?";
 
     public SaidaModel cadastraSaida(SaidaModel saida) {
         try {
@@ -143,15 +144,13 @@ public class SaidaDAO {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro inserir itens na tabela Armazem");
         }
-    }
-    private String consultaDestinoCodigo2 = "SELECT idsaida, dataRetirada, destino.idDestino, destino.descDestino "
-            + "FROM saida, destino WHERE (idsaida = ?) & (destino_idDestino = 0)";
+    }    
     public List<SaidaModel> listarDestinoCodigo(String destino) {
         List<SaidaModel> saidas = new ArrayList();
         try {
             ResultSet rs;
             Conexao conexao = new Conexao();
-            pstm = (PreparedStatement) conexao.conecta().prepareStatement(consultaDestinoCodigo2);
+            pstm = (PreparedStatement) conexao.conecta().prepareStatement(consultaDestinoCodigo);
             pstm.setString(1, destino);
             rs = pstm.executeQuery();
           //  rs.absolute(1);
@@ -219,6 +218,30 @@ public class SaidaDAO {
             e.printStackTrace();
         }
         return saidas;
+    }
+    
+    public List<SaidaModel> listaConsumo(String consumo){
+        List<SaidaModel> saidas = new ArrayList();
+        try {
+            ResultSet rs;
+            Conexao conexao = new Conexao();
+            pstm = (PreparedStatement) conexao.conecta().prepareStatement(consultarConsumo);
+            pstm.setString(1, consumo);
+            rs = pstm.executeQuery();
+            SaidaModel sai;
+            while (rs.next()) {
+                sai = new SaidaModel(); 
+                sai.setDestino(new ArmazemModel(0, "Consumo"));
+                sai.setDataSaida(rs.getDate("dataRetirada"));
+                sai.setIdsaida(rs.getInt("idSaida"));                
+                saidas.add(sai);
+            }
+            rs.close();
+            conexao.desconecta();
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+         return saidas;
     }
 
     public List<SaidaItemModel> listarItens(Integer idEntrada) {
