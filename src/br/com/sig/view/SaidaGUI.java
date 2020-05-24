@@ -259,7 +259,7 @@ public class SaidaGUI extends javax.swing.JFrame {
         } else if (jrb_detalhado.isSelected() == true) {
             listaDestino();
         }else if(jrb_consumo.isSelected() == true){
-            listaConsumo(1);
+            listaConsumo();
         }else {
             listaDestino();
         }
@@ -348,7 +348,7 @@ public class SaidaGUI extends javax.swing.JFrame {
         mostrarDestino(saidas);
 
     }
-    public void listaConsumo(int i){
+    public void listaConsumo(){
         SaidaDAO controlSaida = new SaidaDAO();        
         saidas = controlSaida.listaConsumo("0");                   
         mostrarDestino(saidas);
