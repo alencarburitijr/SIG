@@ -259,14 +259,14 @@ public class ProdutoGUI extends javax.swing.JFrame {
 
                     },
                     new String [] {
-                        "Código", "Produto / Apresentação", "Unid", "Nome Comercial", "Grupo", "Sub-Grupo", "Est. Minimo", "Est. Ideal", "Est. Atual", "Ult. Preço", "orca"
+                        "Código", "Produto / Apresentação", "Unid", "Nome Comercial", "Grupo", "Sub-Grupo", "Est. Minimo", "Est. Ideal", "Est. Atual", "Ult. Preço", "Locação", "orca"
                     }
                 ) {
                     Class[] types = new Class [] {
-                        java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                        java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
                     };
                     boolean[] canEdit = new boolean [] {
-                        false, false, false, false, false, true, false, false, false, false, false
+                        false, false, false, false, false, true, false, false, false, false, false, false
                     };
 
                     public Class getColumnClass(int columnIndex) {
@@ -499,6 +499,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 produto.setUnidade(produtos.get(i).getUnidade());
                 produto.setUltimo_preco(produtos.get(i).getUltimo_preco());
                 produto.setSubGrupo(produtos.get(i).getSubGrupo());
+                produto.setLocacao(produtos.get(i).getLocacao());                
                 
                 preço = String.valueOf(produtos.get(i).getUltimo_preco());
                 preço = setPrecoFormat(preço);
@@ -510,7 +511,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     //cada " " para cada coluna da tabela e para um check box vc coloca true ou false (true marcado false marcado), configura o campo como boolean na tabela antes blz  
                 ItemDbGrid hashDbGrid = new ItemDbGrid(produto, produto.getNome_produto());
                 row.addRow(new Object[]{produto.getCod_produto(), hashDbGrid,produto.getUnidade().getSigla_unidade(), produto.getConcentraçao(), produto.getGrupo().getDesc_grupo(),produto.getSubGrupo().getDescSubGrupo(),
-                produto.getEstoque_minimo(), produto.getEstoque_ideal(), produto.getEstoque(),preço,true});
+                produto.getEstoque_minimo(), produto.getEstoque_ideal(), produto.getEstoque(),preço,produto.getLocacao(),true});
             }
         }
     }

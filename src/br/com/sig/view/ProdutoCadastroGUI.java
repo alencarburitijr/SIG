@@ -84,7 +84,7 @@ public final class ProdutoCadastroGUI extends javax.swing.JFrame {
         jb_salvar = new javax.swing.JButton();
         jtf_codigo = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jtf_concentração = new javax.swing.JTextField(new LimitadorTexto(45), "",10);
+        jtf_locacao = new javax.swing.JTextField(new LimitadorTexto(45), "",10);
         jcb_unidade = new javax.swing.JComboBox();
         jLabel8 = new javax.swing.JLabel();
         jcb_grupo = new javax.swing.JComboBox();
@@ -101,6 +101,8 @@ public final class ProdutoCadastroGUI extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jcb_sub = new javax.swing.JComboBox();
+        jLabel10 = new javax.swing.JLabel();
+        jtf_concentração = new javax.swing.JTextField(new LimitadorTexto(45), "",10);
 
         jScrollPane1.setName("jScrollPane1"); // NOI18N
 
@@ -152,24 +154,14 @@ public final class ProdutoCadastroGUI extends javax.swing.JFrame {
         jLabel6.setName("jLabel6"); // NOI18N
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
 
-        jtf_concentração.setDocument(new UnaccentedDocument());
-        jtf_concentração.setName("jtf_concentração"); // NOI18N
-        jtf_concentração.addActionListener(new java.awt.event.ActionListener() {
+        jtf_locacao.setDocument(new UnaccentedDocument());
+        jtf_locacao.setName("jtf_locacao"); // NOI18N
+        jtf_locacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtf_concentraçãoActionPerformed(evt);
+                jtf_locacaoActionPerformed(evt);
             }
         });
-        jtf_concentração.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jtf_concentraçãoFocusGained(evt);
-            }
-        });
-        jtf_concentração.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jtf_concentraçãoKeyPressed(evt);
-            }
-        });
-        getContentPane().add(jtf_concentração, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 420, -1));
+        getContentPane().add(jtf_locacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 240, 170, -1));
 
         jcb_unidade.setEditable(true);
         jcb_unidade.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "" }));
@@ -335,6 +327,30 @@ public final class ProdutoCadastroGUI extends javax.swing.JFrame {
         });
         getContentPane().add(jcb_sub, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, 130, 20));
 
+        jLabel10.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel10.setText("Locação*");
+        jLabel10.setName("jLabel10"); // NOI18N
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, -1, -1));
+
+        jtf_locacao.setDocument(new UnaccentedDocument());
+        jtf_concentração.setName("jtf_concentração"); // NOI18N
+        jtf_concentração.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jtf_concentraçãoFocusGained(evt);
+            }
+        });
+        jtf_concentração.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtf_concentraçãoActionPerformed(evt);
+            }
+        });
+        jtf_concentração.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtf_concentraçãoKeyPressed(evt);
+            }
+        });
+        getContentPane().add(jtf_concentração, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 420, -1));
+
         setSize(new java.awt.Dimension(484, 336));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -430,21 +446,6 @@ public final class ProdutoCadastroGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtf_nomeFocusGained
 
-    private void jtf_concentraçãoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtf_concentraçãoFocusGained
-//    jtf_concentração.setInputVerifier(new InputVerifier() {
-//    public boolean verify(JComponent input) {
-//                if(jtf_concentração.getText().equals("")) {
-//                    JOptionPane.showMessageDialog(null, "Informe a concentação do produto");
-//                    jtf_concentração.requestFocus();
-//                    return false;
-//                } else {
-//                    return true;
-//                }
-//            }
-//    });
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jtf_concentraçãoFocusGained
-
     private void jtf_estoqueMinimoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtf_estoqueMinimoFocusGained
 
         jtf_estoqueMinimo.setInputVerifier(new InputVerifier() {
@@ -520,9 +521,9 @@ public final class ProdutoCadastroGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtf_nomeKeyReleased
 
-private void jtf_concentraçãoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_concentraçãoActionPerformed
+private void jtf_locacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_locacaoActionPerformed
 // TODO add your handling code here:
-}//GEN-LAST:event_jtf_concentraçãoActionPerformed
+}//GEN-LAST:event_jtf_locacaoActionPerformed
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     UnidadeCadastroGUI unid = new UnidadeCadastroGUI();
@@ -549,19 +550,6 @@ private void jcb_subActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 
     // TODO add your handling code here:
 }//GEN-LAST:event_jcb_subActionPerformed
-
-private void jtf_concentraçãoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtf_concentraçãoKeyPressed
-    jtf_concentração.addKeyListener(new KeyAdapter() {  
-      public void keyReleased(KeyEvent evt) {  
-        if (evt.getKeyCode() != KeyEvent.VK_HOME) {  
-          String s = jtf_concentração.getText();  
-          jtf_concentração.setText(s.toUpperCase());  
-        }  
-      }  
-    }); 
-    
-    // TODO add your handling code here:
-}//GEN-LAST:event_jtf_concentraçãoKeyPressed
 
 private void jtf_estoqueMinimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_estoqueMinimoActionPerformed
 // TODO add your handling code here:
@@ -595,6 +583,18 @@ private void jcb_subFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
 
 }//GEN-LAST:event_jcb_subFocusGained
 
+    private void jtf_concentraçãoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtf_concentraçãoFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtf_concentraçãoFocusGained
+
+    private void jtf_concentraçãoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtf_concentraçãoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtf_concentraçãoActionPerformed
+
+    private void jtf_concentraçãoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtf_concentraçãoKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtf_concentraçãoKeyPressed
+
     
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -612,6 +612,7 @@ private void jcb_subFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -630,6 +631,7 @@ private void jcb_subFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
     private javax.swing.JTextField jtf_concentração;
     private javax.swing.JTextField jtf_estoqueIdeal;
     private javax.swing.JTextField jtf_estoqueMinimo;
+    private javax.swing.JTextField jtf_locacao;
     private javax.swing.JTextField jtf_nome;
     private javax.swing.JTextArea tfa_similar;
     // End of variables declaration//GEN-END:variables
@@ -651,9 +653,10 @@ private void jcb_subFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
             produto.setGrupo(grupoCombo);
             produto.setUnidade(unidadeCombo);
             produto.setSubGrupo(subCombo);
-            produto.setConcentraçao(jtf_concentração.getText().trim());
+            produto.setConcentraçao(jtf_locacao.getText().trim());
             produto.setEstoque_ideal(Integer.parseInt(jtf_estoqueIdeal.getText().trim()));
             produto.setEstoque_minimo(Integer.parseInt(jtf_estoqueMinimo.getText()));
+            produto.setLocacao(jtf_locacao.getText().trim());
             produtoControl.cadastraProduto(produto);
             JOptionPane.showMessageDialog(null, "Cadastro efetuado com sucesso");
             retornaJanelaPai();
@@ -678,6 +681,9 @@ private void jcb_subFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
         }
         if (jtf_estoqueMinimo.getText().trim().equals("")) {
             msgERRO = msgERRO + " *Estoque Minimo\n";
+        }
+        if(jtf_locacao.getText().trim().equals("")){
+            msgERRO = msgERRO + " *Locação\n";
         }
 
         if (!msgERRO.equals("Preencha os campos obrigatórios:\n")) {

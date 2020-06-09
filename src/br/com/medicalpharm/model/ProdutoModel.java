@@ -23,6 +23,10 @@ public class ProdutoModel {
     private Integer estoque;
     private Date data;
     private SubGrupoModel subGrupo;
+    private String locacao;//ALTER TABLE `produto` ADD `locacao` VARCHAR(20) NOT NULL AFTER `id_SubGrupo`;
+
+    
+    
 
     public ProdutoModel(Integer cod_produto, String nome_produto, String concentraçao) {
         this.cod_produto = cod_produto;
@@ -35,6 +39,14 @@ public class ProdutoModel {
     }
 
     public ProdutoModel() {
+    }
+    
+    public String getLocacao() {
+        return locacao;
+    }
+
+    public void setLocacao(String locacao) {
+        this.locacao = locacao;
     }
 
     public Integer getEstoque() {

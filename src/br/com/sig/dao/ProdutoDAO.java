@@ -23,7 +23,7 @@ public class ProdutoDAO {
     java.sql.PreparedStatement pstm;
     ResultSet rs;
     private String cadastraProduto = "INSERT INTO produto (descProduto, concentracao, estMinimo,estIdeal,"
-            + "unidadeMedida_idunidadeMedida,grupo_idgrupo,quantidade,id_SubGrupo)VALUES(?,?,?,?,?,?,?,?)";
+            + "unidadeMedida_idunidadeMedida,grupo_idgrupo,quantidade,id_SubGrupo,locacao)VALUES(?,?,?,?,?,?,?,?,?)";
     
     private String estoqueIdeal = "SELECT idProduto, descProduto,concentracao, estIdeal, estMinimo,"
             + " produto.quantidade, grupo.descGrupo FROM produto, grupo WHERE (estIdeal>quantidade) && "
@@ -39,11 +39,11 @@ public class ProdutoDAO {
             + "FROM produto, tbarmazem where(produto.idproduto=tbarmazem.codProduto) and (codDestino=?) ORDER BY descProduto";
     private String consultaProduto1 = "SELECT idproduto, concentracao, descProduto,  estminimo, estideal,quantidade, "
             + "grupo.idgrupo, grupo.descGrupo, unidademedida.idunidademedida,  unidademedida.siglaunidade,"
-            + "unidademedida.descunidade, ultimoPreço, subgrupo.idSubGrupo, subgrupo.subDescricao  FROM PRODUTO,grupo,unidademedida, subgrupo where (descProduto LIKE ?)  & "
+            + "unidademedida.descunidade, ultimoPreço, subgrupo.idSubGrupo, subgrupo.subDescricao,locacao  FROM PRODUTO,grupo,unidademedida, subgrupo where (descProduto LIKE ?)  & "
             + "(grupo.idgrupo=grupo_idgrupo) & (unidademedida.idunidademedida=unidademedida_idunidademedida) & (subgrupo.idSubGrupo=id_SubGrupo) ORDER BY descProduto";
     private String consultaProdutoComercial = "SELECT idproduto, concentracao, descProduto,  estminimo, estideal,quantidade, "
             + "grupo.idgrupo, grupo.descGrupo, unidademedida.idunidademedida,  unidademedida.siglaunidade,"
-            + "unidademedida.descunidade, ultimoPreço, subgrupo.idSubGrupo, subgrupo.subDescricao  FROM PRODUTO,grupo,unidademedida, subgrupo where (concentracao LIKE ?) & "
+            + "unidademedida.descunidade, ultimoPreço, subgrupo.idSubGrupo, subgrupo.subDescricao,locacao  FROM PRODUTO,grupo,unidademedida, subgrupo where (concentracao LIKE ?) & "
             + "(grupo.idgrupo=grupo_idgrupo) & (unidademedida.idunidademedida=unidademedida_idunidademedida) & (subgrupo.idSubGrupo=id_SubGrupo) ORDER BY descProduto";
     
     private String consultaProd = "SELECT idproduto, concentracao, descProduto,  estminimo, estideal,quantidade, grupo.idgrupo, "
@@ -78,7 +78,6 @@ public class ProdutoDAO {
 
     public void cadastraProduto(ProdutoModel produto) {
         try {
-
             Conexao conexao = new Conexao();
             pstm = (PreparedStatement) conexao.conecta().prepareStatement(cadastraProduto);
             pstm.setString(1, produto.getNome_produto());
@@ -89,7 +88,7 @@ public class ProdutoDAO {
             pstm.setInt(6, produto.getGrupo().getCod_grupo());
             pstm.setInt(7, (0));
             pstm.setInt(8, produto.getSubGrupo().getIdSubGrupo());
-
+            pstm.setString(9,produto.getLocacao());
 
             pstm.executeUpdate();
             conexao.desconecta();
@@ -141,7 +140,6 @@ public class ProdutoDAO {
             pstm.setString(1, nome_produto);
             //pstm.setString(2, nome_produto);
 
-
             rs = pstm.executeQuery();
             ProdutoModel prod;
             while (rs.next()) {
@@ -157,6 +155,7 @@ public class ProdutoDAO {
                 prod.setNome_produto(rs.getString("descProduto"));
                 prod.setGrupo(new GrupoModel(rs.getInt("grupo.idgrupo"), rs.getString("grupo.descGrupo")));
                 prod.setUnidade(new UnidadeModel(rs.getInt("unidademedida.idunidademedida"), rs.getString("unidademedida.siglaunidade"), rs.getString("unidademedida.descunidade")));
+                prod.setLocacao(rs.getString("locacao"));
                 produto.add(prod);
             }
             conexao.desconecta();
@@ -188,6 +187,7 @@ public List<ProdutoModel> listarProdutoComercial(String nome_produto) {
                 prod.setNome_produto(rs.getString("descProduto"));
                 prod.setGrupo(new GrupoModel(rs.getInt("grupo.idgrupo"), rs.getString("grupo.descGrupo")));
                 prod.setUnidade(new UnidadeModel(rs.getInt("unidademedida.idunidademedida"), rs.getString("unidademedida.siglaunidade"), rs.getString("unidademedida.descunidade")));
+                prod.setLocacao(rs.getString("locacao"));
                 produto.add(prod);
             }
             conexao.desconecta();
