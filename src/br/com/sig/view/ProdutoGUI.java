@@ -531,6 +531,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             prod.setGrupo(produtos.get(tb.getSelectedRow()).getGrupo());
             prod.setUnidade(produtos.get(tb.getSelectedRow()).getUnidade());
             prod.setSubGrupo(produtos.get(tb.getSelectedRow()).getSubGrupo());
+            prod.setLocacao(produtos.get(tb.getSelectedRow()).getLocacao());
         }
         return prod;
     }

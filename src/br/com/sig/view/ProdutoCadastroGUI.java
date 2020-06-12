@@ -638,7 +638,7 @@ private void jcb_subFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
     ProdutoModel produto = new ProdutoModel();
     SubGrupoModel subCombo;
     private void cadastraProduto() {
-        if (verificarCampos() && validaEstoque()) {
+        if (verificarCampos() && validaEstoque() && verificarLocacao()) {
             ItemDbGrid hashDbGrid1 = (ItemDbGrid) jcb_unidade.getSelectedItem();
             unidadeCombo = (UnidadeModel) hashDbGrid1.getObjeto();
 
@@ -705,6 +705,14 @@ private void jcb_subFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
             JOptionPane.showMessageDialog(null, "Estoque ideal menor que estoque mínimo");
             jtf_estoqueIdeal.requestFocus();
             return false;
+        }
+        return true;
+    }
+    
+    public boolean verificarLocacao(){
+        if(jtf_locacao.getText().trim().length() > 20){
+             JOptionPane.showMessageDialog(null, "O campo locação deve ter no máximo 20 caracteres");
+             return false;
         }
         return true;
     }

@@ -64,6 +64,7 @@ public class ProdutoAlterarGUI extends javax.swing.JFrame {
         jtf_concentração.setText(String.valueOf(produto.getConcentraçao()));
         jtf_estoqueIdeal.setText(String.valueOf(produto.getEstoque_ideal()));
         jtf_estoqueMinimo.setText(String.valueOf(produto.getEstoque_minimo()));
+        jtf_locacao.setText(String.valueOf(produto.getLocacao()));
 
         GrupoModel grupoModel = new GrupoModel();
         grupoModel.setCod_grupo(produto.getGrupo().getCod_grupo());
@@ -150,6 +151,8 @@ public class ProdutoAlterarGUI extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jcb_sub = new javax.swing.JComboBox();
+        jtf_locacao = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Alterando Produto");
@@ -227,9 +230,9 @@ public class ProdutoAlterarGUI extends javax.swing.JFrame {
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
-        jLabel7.setText("Estoque Ideal *");
+        jLabel7.setText("Locação*");
         jLabel7.setName("jLabel7"); // NOI18N
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, -1, -1));
 
         jtf_codigo.setEditable(false);
         jtf_codigo.setName("jtf_codigo"); // NOI18N
@@ -328,6 +331,14 @@ public class ProdutoAlterarGUI extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jcb_sub, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 190, 130, -1));
+
+        jtf_locacao.setName("jtf_locacao"); // NOI18N
+        getContentPane().add(jtf_locacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 240, 170, -1));
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 0, 12)); // NOI18N
+        jLabel10.setText("Estoque Ideal *");
+        jLabel10.setName("jLabel10"); // NOI18N
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, -1, -1));
 
         setSize(new java.awt.Dimension(482, 333));
         setLocationRelativeTo(null);
@@ -506,6 +517,7 @@ private void jcb_subFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -523,11 +535,12 @@ private void jcb_subFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
     private javax.swing.JTextField jtf_concentração;
     private javax.swing.JTextField jtf_estoqueIdeal;
     private javax.swing.JTextField jtf_estoqueMinimo;
+    private javax.swing.JTextField jtf_locacao;
     private javax.swing.JTextField jtf_nome;
     // End of variables declaration//GEN-END:variables
         SubGrupoModel subCombo;
     private void alterarProduto() {
-        if (verificarCampos() && validaEstoque()) {
+        if (verificarCampos() && validaEstoque() &&  verificarLocacao()) {
 
             ItemDbGrid hashDbGrid1 = (ItemDbGrid) jcb_grupo.getSelectedItem();
             grupoCombo = (GrupoModel) hashDbGrid1.getObjeto();
@@ -544,11 +557,19 @@ private void jcb_subFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
             this.objproduto.setGrupo(grupoCombo);
             this.objproduto.setUnidade(unidadeCombo);
             this.objproduto.setSubGrupo(subCombo);
+            this.objproduto.setLocacao(jtf_locacao.getText().trim());
             produtoControl.alterarProduto(this.objproduto);
             JOptionPane.showMessageDialog(null, "Cadastro Alterado com sucesso");
             retornaJanelaPai();
         }
 
+    }
+     public boolean verificarLocacao(){
+        if(jtf_locacao.getText().trim().length() > 20){
+             JOptionPane.showMessageDialog(null, "O campo locação deve ter no máximo 20 caracteres");
+             return false;
+        }
+        return true;
     }
 
     public void verificaCadastro() {
@@ -585,6 +606,9 @@ private void jcb_subFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
         }
         if (jtf_estoqueIdeal.getText().trim().equals("")) {
             msgERRO = msgERRO + " *Estoque Ideal\n";
+        }
+        if (jtf_locacao.getText().trim().equals("")) {
+            msgERRO = msgERRO + " *Locação\n";
         }
         if (jtf_estoqueMinimo.getText().trim().equals("")) {
             msgERRO = msgERRO + " *Estoque Minimo\n";

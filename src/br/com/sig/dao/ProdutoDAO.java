@@ -71,7 +71,7 @@ public class ProdutoDAO {
             + "grupo.idgrupo, grupo.descGrupo, unidademedida.idunidademedida, unidademedida.siglaunidade, "
             + "unidademedida.descunidade, ultimoPreço,  subgrupo.idSubGrupo, subgrupo.subDescricao   FROM PRODUTO,grupo,unidademedida,subgrupo where (idproduto=?) & "
             + "(grupo.idgrupo=grupo_idgrupo) & (unidademedida.idunidademedida=unidademedida_idunidademedida) & (subgrupo.idSubGrupo=id_SubGrupo) ";
-    private String alteraProduto = "UPDATE produto SET descProduto = ?, concentracao = ?, estMinimo = ?, estIdeal = ?, grupo_idgrupo = ?, unidadeMedida_idunidadeMedida = ?, id_SubGrupo = ? WHERE idproduto = ?";
+    private String alteraProduto = "UPDATE produto SET descProduto = ?, concentracao = ?, estMinimo = ?, estIdeal = ?, grupo_idgrupo = ?, unidadeMedida_idunidadeMedida = ?, id_SubGrupo = ?,locacao = ? WHERE idproduto = ?";
     private String excluiProduto = "DELETE FROM produto WHERE idproduto = ?";
     
     private String updateQuantidade = "UPDATE `produto` SET `quantidade`=`quantidade`? ? WHERE idproduto = ?";
@@ -108,7 +108,8 @@ public class ProdutoDAO {
             pstm.setInt(5, produto.getGrupo().getCod_grupo());
             pstm.setInt(6, produto.getUnidade().getCod_unidade());
             pstm.setInt(7, produto.getSubGrupo().getIdSubGrupo());
-            pstm.setInt(8, produto.getCod_produto());
+            pstm.setString(8,produto.getLocacao());
+            pstm.setInt(9, produto.getCod_produto());            
             
             pstm.executeUpdate();
             conexao.desconecta();
