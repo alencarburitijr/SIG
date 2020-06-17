@@ -369,6 +369,13 @@ private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_j
             prod.setNome_produto(produtos.get(tb.getSelectedRow()).getNome_produto());
             prod.setConcentraçao(produtos.get(tb.getSelectedRow()).getConcentraçao());
             prod.setEstoque(produtos.get(tb.getSelectedRow()).getEstoque());
+            prod.setLocacao(produtos.get(tb.getSelectedRow()).getLocacao());
+            prod.setUnidade(produtos.get(tb.getSelectedRow()).getUnidade());
+            prod.setGrupo(produtos.get(tb.getSelectedRow()).getGrupo());
+            prod.setSubGrupo(produtos.get(tb.getSelectedRow()).getSubGrupo());
+            prod.setEstoque_minimo(produtos.get(tb.getSelectedRow()).getEstoque_minimo());
+            prod.setEstoque_ideal(produtos.get(tb.getSelectedRow()).getEstoque_ideal());
+          
         }
         return prod;
     }
@@ -408,6 +415,7 @@ private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_j
                 produto.setEstoque_minimo(produtos.get(i).getEstoque_minimo());
                 produto.setGrupo(produtos.get(i).getGrupo());
                 produto.setUnidade(produtos.get(i).getUnidade());
+                produto.setLocacao(produtos.get(i).getLocacao());
 
                 DefaultTableModel row = (DefaultTableModel) jTable1.getModel();
                 ItemDbGrid hashDbGrid = new ItemDbGrid(produto, produto.getNome_produto());

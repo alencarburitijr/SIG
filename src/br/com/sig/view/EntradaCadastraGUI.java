@@ -16,6 +16,7 @@ import br.com.medicalpharm.model.EntradaItemModel;
 import br.com.medicalpharm.model.EntradaModel;
 import br.com.medicalpharm.model.FornecedorModel;
 import br.com.medicalpharm.model.ProdutoModel;
+import br.com.sig.relatorios.Relatorios;
 import br.com.sig.util.Data;
 import br.com.sig.util.ItemDbGrid;
 import br.com.sig.util.LimitadorTexto;
@@ -130,6 +131,8 @@ public class EntradaCadastraGUI extends javax.swing.JFrame implements EntradaCad
         jLabel14 = new javax.swing.JLabel();
         jtf_codigo = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jtf_locacao = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         jb_salvar = new javax.swing.JButton();
         jb_cancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -353,6 +356,13 @@ public class EntradaCadastraGUI extends javax.swing.JFrame implements EntradaCad
             }
         });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 40, 30, -1));
+
+        jtf_locacao.setName("jtf_locacao"); // NOI18N
+        jPanel2.add(jtf_locacao, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 170, -1));
+
+        jLabel4.setText("Locação");
+        jLabel4.setName("jLabel4"); // NOI18N
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, -1, -1));
 
         getContentPane().add(jPanel2);
         jPanel2.setBounds(20, 190, 590, 350);
@@ -791,6 +801,7 @@ private void jtf_fornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -809,6 +820,7 @@ private void jtf_fornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
     private javax.swing.JTextField jtf_codigo;
     private javax.swing.JTextField jtf_codigo_forn;
     private javax.swing.JTextField jtf_fornecedor;
+    private javax.swing.JTextField jtf_locacao;
     private javax.swing.JTextField jtf_preco;
     private javax.swing.JTextField jtf_produto;
     private javax.swing.JTextField jtf_quantidade;
@@ -1172,14 +1184,13 @@ private void jtf_fornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
 //        return produtoExistente;
 //    }
 
-    public void limparItem() {
-
-       
+    public void limparItem() {      
         jtf_preco.setText("R$");
         jtf_quantidade.setText("");
        
         jtf_codigo.setText("");
         jtf_produto.setText("");
+        jtf_locacao.setText("");
 //        jtf_concentracao.setText("");
     }
 
@@ -1200,7 +1211,19 @@ private void jtf_fornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
     public void carregaProduto(ProdutoModel produto) {
         this.produto = produto;
         jtf_produto.setText(produto.getNome_produto());
-        jtf_codigo.setText(String.valueOf(produto.getCod_produto()));       
+        jtf_codigo.setText(String.valueOf(produto.getCod_produto()));  
+        if(produto.getLocacao().equals("")){
+            int selectedOption = JOptionPane.showConfirmDialog(this, "O campo Locaçao esta Vario deseja adicionalo?", "Atenção", JOptionPane.YES_NO_OPTION);
+            if (selectedOption == JOptionPane.YES_NO_OPTION) {
+                ProdutoAlterarGUI produtoAltera = new ProdutoAlterarGUI(produto);
+                produtoAltera.janela2 = this;
+                produtoAltera.setVisible(true);
+                this.setEnabled(false);
+            }           
+        }else{
+            jtf_locacao.setText(produto.getLocacao());
+        }
+        
     }
 
     public void setStatusTela(boolean status) {

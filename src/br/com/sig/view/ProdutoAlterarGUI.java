@@ -37,6 +37,7 @@ import javax.swing.UIManager;
 public class ProdutoAlterarGUI extends javax.swing.JFrame {
 
     public ProdutoGUI janelapai;
+    public EntradaCadastraGUI janela2;
     public ProdutoModel objproduto;
     public List<ProdutoModel> produtos;
 
@@ -349,9 +350,15 @@ public class ProdutoAlterarGUI extends javax.swing.JFrame {
 }//GEN-LAST:event_jb_salvarActionPerformed
 
     private void jb_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_cancelarActionPerformed
-        janelapai.setEnabled(true);
-        janelapai.setVisible(true);
-        janelapai.request();
+        if(janelapai != null){
+            janelapai.setEnabled(true);
+            janelapai.setVisible(true);
+            janelapai.request();                
+        }else if(janela2 != null){
+            janela2.setEnabled(true);
+            janela2.setVisible(true);
+                       
+        }
         setVisible(false);
         // TODO add your handling code here:
 }//GEN-LAST:event_jb_cancelarActionPerformed
@@ -629,11 +636,19 @@ private void jcb_subFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
     }
 
     public void retornaJanelaPai() {
-        janelapai.setEnabled(true);
-        janelapai.setVisible(true);
-        janelapai.request();
-        this.setVisible(false);
-        janelapai.listaProduto();
+        if(janelapai != null){
+            janelapai.setEnabled(true);
+            janelapai.setVisible(true);
+            janelapai.request();
+            this.setVisible(false);
+            janelapai.listaProduto();
+        }else if(janela2 != null){
+            janela2.setEnabled(true);
+            janela2.setVisible(true);    
+            janela2.carregaProduto(objproduto);
+            this.setVisible(false);
+            
+        }
     }
 
     public void setStatusTela(boolean status) {

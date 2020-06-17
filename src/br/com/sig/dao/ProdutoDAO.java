@@ -47,9 +47,9 @@ public class ProdutoDAO {
             + "(grupo.idgrupo=grupo_idgrupo) & (unidademedida.idunidademedida=unidademedida_idunidademedida) & (subgrupo.idSubGrupo=id_SubGrupo) ORDER BY descProduto";
     
     private String consultaProd = "SELECT idproduto, concentracao, descProduto,  estminimo, estideal,quantidade, grupo.idgrupo, "
-            + "grupo.descGrupo, unidademedida.idunidademedida,  unidademedida.siglaunidade, unidademedida.descunidade  "
-            + "FROM produto,grupo,unidademedida where (descProduto LIKE ?) & "
-            + "(grupo.idgrupo=grupo_idgrupo) & (unidademedida.idunidademedida=unidademedida_idunidademedida) ORDER BY descProduto";
+            + "grupo.descGrupo, unidademedida.idunidademedida,  unidademedida.siglaunidade, unidademedida.descunidade, subgrupo.idSubGrupo, subgrupo.subDescricao, locacao  "
+            + "FROM produto,grupo,unidademedida,subgrupo where (descProduto LIKE ?) & "
+            + "(grupo.idgrupo=grupo_idgrupo) & (unidademedida.idunidademedida=unidademedida_idunidademedida) & (subgrupo.idSubGrupo=id_SubGrupo) ORDER BY descProduto";
     private String consultaProd1 = "SELECT idproduto, concentracao, descProduto,  estminimo, estideal,quantidade, grupo.idgrupo, "
             + "grupo.descGrupo, unidademedida.idunidademedida,  unidademedida.siglaunidade, unidademedida.descunidade  "
             + "FROM produto,grupo,unidademedida where (concentracao LIKE ?) & "
@@ -217,7 +217,9 @@ public List<ProdutoModel> listarProdutoComercial(String nome_produto) {
                 prod.setEstoque(rs.getInt("quantidade"));
                 prod.setNome_produto(rs.getString("descProduto"));
                 prod.setGrupo(new GrupoModel(rs.getInt("grupo.idgrupo"), rs.getString("grupo.descGrupo")));
+                prod.setSubGrupo(new SubGrupoModel(rs.getInt("subgrupo.idSubGrupo"),rs.getString("subgrupo.subDescricao")));
                 prod.setUnidade(new UnidadeModel(rs.getInt("unidademedida.idunidademedida"), rs.getString("unidademedida.siglaunidade"), rs.getString("unidademedida.descunidade")));
+                prod.setLocacao(rs.getString("locacao"));
                 produto.add(prod);
             }
             conexao.desconecta();
