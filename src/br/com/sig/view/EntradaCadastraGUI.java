@@ -310,14 +310,14 @@ public class EntradaCadastraGUI extends javax.swing.JFrame implements EntradaCad
 
             },
             new String [] {
-                "Código", "Produto", "Preço", "Qtd"
+                "Código", "Produto", "Locação", "Preço", "Qtd"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -333,8 +333,8 @@ public class EntradaCadastraGUI extends javax.swing.JFrame implements EntradaCad
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setPreferredWidth(10);
             jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(30);
             jTable1.getColumnModel().getColumn(3).setPreferredWidth(30);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(30);
         }
 
         jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 550, 200));
@@ -1088,7 +1088,7 @@ private void jtf_fornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
 
             DefaultTableModel row = (DefaultTableModel) jTable1.getModel();
             ItemDbGrid hashDbGrid = new ItemDbGrid(entradaItemModel, entradaItemModel.getProduto().getNome_produto());
-            row.addRow(new Object[]{produto.getCod_produto(), hashDbGrid,jtf_preco.getText(), jtf_quantidade.getText()});
+            row.addRow(new Object[]{produto.getCod_produto(), hashDbGrid,produto.getLocacao(),jtf_preco.getText(), jtf_quantidade.getText()});
             limparItem();
             //jtf_produto.requestFocus();
         } else {
@@ -1213,7 +1213,7 @@ private void jtf_fornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
         jtf_produto.setText(produto.getNome_produto());
         jtf_codigo.setText(String.valueOf(produto.getCod_produto()));  
         if(produto.getLocacao().equals("")){
-            int selectedOption = JOptionPane.showConfirmDialog(this, "O campo Locaçao esta Vario deseja adicionalo?", "Atenção", JOptionPane.YES_NO_OPTION);
+            int selectedOption = JOptionPane.showConfirmDialog(this, "Deseja alterar a locação agora?", "Atenção", JOptionPane.YES_NO_OPTION);
             if (selectedOption == JOptionPane.YES_NO_OPTION) {
                 ProdutoAlterarGUI produtoAltera = new ProdutoAlterarGUI(produto);
                 produtoAltera.janela2 = this;
