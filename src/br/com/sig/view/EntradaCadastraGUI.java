@@ -836,8 +836,8 @@ private void jtf_fornecedorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
                 EntradaItemModel entrItem = new EntradaItemModel();
                 entrItem.setProduto(new ProdutoModel((Integer) jTable1.getValueAt(i, 0)));
                 entrItem.setLote("0");
-                entrItem.setPreco(getPrecoFormato((String) jTable1.getValueAt(i, 2)));
-                entrItem.setQnt(Integer.parseInt((String) jTable1.getValueAt(i, 3)));
+                entrItem.setPreco(getPrecoFormato((String) jTable1.getValueAt(i, 3)));
+                entrItem.setQnt(Integer.parseInt((String) jTable1.getValueAt(i, 4)));
                 try {
                     entrItem.setVencimento(new SimpleDateFormat("dd/MM/yyyy").parse("00/00/0000"));
                     //                ItemDbGrid hashDbGrid1 = (ItemDbGrid) jTable1.getValueAt(i, 0);
