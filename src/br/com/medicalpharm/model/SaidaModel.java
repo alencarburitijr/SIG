@@ -24,6 +24,24 @@ public class SaidaModel {
     private ArmazemModel destino;
     private Date dataSaida;
     private List<SaidaItemModel> itensSaida;    
+    private Integer idVeiculo;
+    private String veiculoDescricao;
+
+    public String getVeiculoDescricao() {
+        return veiculoDescricao;
+    }
+
+    public void setVeiculoDescricao(String veiculoDescricao) {
+        this.veiculoDescricao = veiculoDescricao;
+    }
+
+    public Integer getIdVeiculo() {
+        return idVeiculo;
+    }
+
+    public void setIdVeiculo(Integer idVeiculo) {
+        this.idVeiculo = idVeiculo;
+    }
    
     public List<SaidaItemModel> getItensSaida() {
         return itensSaida;

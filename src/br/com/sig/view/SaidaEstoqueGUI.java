@@ -128,6 +128,11 @@ public class SaidaEstoqueGUI extends javax.swing.JFrame implements SaidaEstoqueG
         jLabel5 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jRadioConsumo = new javax.swing.JRadioButton();
+        jtf_veiculo = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jtf_codigoVeiculo = new javax.swing.JTextField();
+        jButton_veiculo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Saída de estoque principal");
@@ -278,7 +283,7 @@ public class SaidaEstoqueGUI extends javax.swing.JFrame implements SaidaEstoqueG
         jtf_estoque.setName("jtf_estoque"); // NOI18N
         jPanel2.add(jtf_estoque, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 70, -1));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 430, 300));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 430, 300));
 
         jb_salvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/medicalpharm/image/gravar_registro.gif"))); // NOI18N
         jb_salvar.setText("Salvar");
@@ -365,7 +370,33 @@ public class SaidaEstoqueGUI extends javax.swing.JFrame implements SaidaEstoqueG
         });
         getContentPane().add(jRadioConsumo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, -1, -1));
 
-        setSize(new java.awt.Dimension(496, 533));
+        jtf_veiculo.setEnabled(false);
+        jtf_veiculo.setName("jtf_veiculo"); // NOI18N
+        getContentPane().add(jtf_veiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 290, -1));
+
+        jLabel11.setText("Veiculo:");
+        jLabel11.setName("jLabel11"); // NOI18N
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, -1, -1));
+
+        jLabel10.setText("Código");
+        jLabel10.setName("jLabel10"); // NOI18N
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
+
+        jtf_codigoVeiculo.setEnabled(false);
+        jtf_codigoVeiculo.setName("jtf_codigoVeiculo"); // NOI18N
+        getContentPane().add(jtf_codigoVeiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 80, -1));
+
+        jButton_veiculo.setText("...");
+        jButton_veiculo.setEnabled(false);
+        jButton_veiculo.setName("jButton_veiculo"); // NOI18N
+        jButton_veiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_veiculoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton_veiculo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 30, -1));
+
+        setSize(new java.awt.Dimension(496, 583));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -560,12 +591,26 @@ private void jtf_quantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
             jtf_armazem.setEnabled(false);
             jb_destino.setEnabled(false);
             consumo = true;
+            
+            jtf_veiculo.setEnabled(true);
+            jButton_veiculo.setEnabled(true);
         }else if(jRadioConsumo.isSelected() != true){
             jtf_armazem.setEnabled(true);
             jb_destino.setEnabled(true);
             consumo = false;
+            
+            jtf_veiculo.setEnabled(false);
+            jButton_veiculo.setEnabled(false);
         }
     }//GEN-LAST:event_jRadioConsumoActionPerformed
+
+    private void jButton_veiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_veiculoActionPerformed
+        VeiculoConsultar2GUI mostrar = new VeiculoConsultar2GUI();
+        mostrar.listarVeiculos(jtf_veiculo.getText());
+        mostrar.setSaidaEstoquePrincipal(this);
+        mostrar.saidaEstoquePrincipal = this;
+        mostrar.setVisible(true);
+    }//GEN-LAST:event_jButton_veiculoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -579,7 +624,10 @@ private void jtf_quantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton_veiculo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -601,9 +649,11 @@ private void jtf_quantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
     private javax.swing.JTextField jtf_armazem;
     private javax.swing.JTextField jtf_cod_arm;
     private javax.swing.JTextField jtf_codigo;
+    private javax.swing.JTextField jtf_codigoVeiculo;
     private javax.swing.JTextField jtf_estoque;
     private javax.swing.JTextField jtf_produto;
     private javax.swing.JTextField jtf_quantidade;
+    private javax.swing.JTextField jtf_veiculo;
     // End of variables declaration//GEN-END:variables
 
     public void statusTela(boolean status) {
@@ -661,12 +711,14 @@ private void jtf_quantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
                 }
                 //SaidaDAO controlaSaida = new SaidaDAO();
                 //controlSaida.limparTabela();
-                if(jRadioConsumo.isSelected() != true){
-                    saida.setDestino(armazem);
+                if(!jRadioConsumo.isSelected()){
+                    saida.setDestino(armazem);                    
+                    saida.setIdVeiculo(0);                                        
                 }else if(jRadioConsumo.isSelected()){
                     ArmazemModel armazemVazio = new ArmazemModel();
                     armazemVazio.setCod_destino(0);
                     armazemVazio.setDesc_destino("Consumo");
+                    saida.setIdVeiculo(Integer.parseInt(jtf_codigoVeiculo.getText()));
                     saida.setDestino(armazemVazio);                    
                 }
               
@@ -700,6 +752,10 @@ private void jtf_quantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
 
     private boolean verificaCampos() {
         String msgERRO = "Preencha os campos obrigatórios:\n";
+        
+        if(jtf_codigoVeiculo.getText().equals("") && jRadioConsumo.isSelected() == true){
+             msgERRO = msgERRO + " *Veiculo\n";
+        }
 
         if (jtf_cod_arm.getText().equals("") && jRadioConsumo.isSelected() != true) {
             msgERRO = msgERRO + " *Almoxarifado\n";
@@ -831,5 +887,10 @@ private void jtf_quantidadeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST
         jtf_cod_arm.setText(String.valueOf(armazem.getCod_destino()));
         jtf_armazem.setText(armazem.getDesc_destino());
         jtf_produto.requestFocus();                
+    }
+    
+    public void carregarVeiculo(VeiculoModel veiculo){
+        jtf_codigoVeiculo.setText(veiculo.getCodigo()+"");
+        jtf_veiculo.setText(veiculo.getDescricao()+"");
     }
 }

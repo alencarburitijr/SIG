@@ -244,8 +244,10 @@ public class VeiculoConsultar2GUI extends javax.swing.JFrame {
     public VeiculoModel veiculo = new VeiculoModel();
     public RequisicaoNovaGUI  requiNova = null;
     public ArmazemCadastroGUI saidaEstoque = null;
+    public SaidaEstoqueGUI saidaEstoquePrincipal = null;
     RequisicaoNovaGUI_Interface reInterface;
     ArmazemCadastroGUI_Interface saInterface;
+    SaidaEstoqueGUI_interface saidaEstoquePrincipalInterface;
     public void pegarVeiculo(){
         veiculo.setCodigo(Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(),0).toString().trim()));
         veiculo.setDescricao(jTable1.getValueAt(jTable1.getSelectedRow(),1).toString().trim());
@@ -255,6 +257,8 @@ public class VeiculoConsultar2GUI extends javax.swing.JFrame {
             reInterface.carregarVeiculo(veiculo);
         }else if(saidaEstoque != null){
             saInterface.carregarVeiculo(veiculo);
+        }else if(saidaEstoquePrincipal != null){
+            saidaEstoquePrincipalInterface.carregarVeiculo(veiculo);
         }
         setVisible(false);
     }
@@ -264,6 +268,9 @@ public class VeiculoConsultar2GUI extends javax.swing.JFrame {
     }
     public void setSaidaEstoque(ArmazemCadastroGUI_Interface sa){
         saInterface = sa;
+    }
+    public void setSaidaEstoquePrincipal(SaidaEstoqueGUI_interface prin){
+        saidaEstoquePrincipalInterface = prin;
     }
     
     

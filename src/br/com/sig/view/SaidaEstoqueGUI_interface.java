@@ -7,6 +7,7 @@ package br.com.sig.view;
 
 import br.com.medicalpharm.model.ArmazemModel;
 import br.com.medicalpharm.model.ProdutoModel;
+import br.com.medicalpharm.model.VeiculoModel;
 
 /**
  *
@@ -15,5 +16,6 @@ import br.com.medicalpharm.model.ProdutoModel;
 public interface SaidaEstoqueGUI_interface {
     public void carregaProduto(ProdutoModel produto);
     public void carregaDestino(ArmazemModel destino);    
-    public void statusTela(boolean status);    
+    public void statusTela(boolean status);
+    public void carregarVeiculo(VeiculoModel veiculo);
 }

@@ -21,7 +21,7 @@ import javax.swing.JOptionPane;
 public class SaidaDAO {
 
     PreparedStatement pstm;
-    private String cadastraSaida = "INSERT INTO saida(dataRetirada, destino_iddestino)VALUES(?,?)";
+    private String cadastraSaida = "INSERT INTO saida(dataRetirada, destino_iddestino,idVeiculo)VALUES(?,?,?)";
     
     private String cadastraArmazem = "INSERT INTO tbarmazem(codDestino,codProduto,tbarmazem.quantidade,tbarmazem.vencimento)VALUES(?,?,?,?)";
     
@@ -37,7 +37,7 @@ public class SaidaDAO {
             + "FROM saida, destino WHERE (idsaida = ?) & (destino.idDestino = destino_idDestino)";
     private String consultaItem = "SELECT idsaidaItem,  produto.idproduto, produto.descProduto, produto.concentracao,"
             + " saida_idsaida, saidaitem.quantidade FROM saidaitem, produto WHERE (saida_idsaida = ?) & ( produto.idproduto = produto_idproduto )";
-    private String consultarConsumo = "SELECT idsaida, dataRetirada FROM saida WHERE saida.destino_idDestino = ?";
+    private String consultarConsumo = "SELECT saida.idsaida, saida.dataRetirada,veiculo.descricao FROM saida,veiculo WHERE saida.destino_idDestino = ? AND veiculo.codigo = saida.idVeiculo";
 
     public SaidaModel cadastraSaida(SaidaModel saida) {
         try {
@@ -49,7 +49,8 @@ public class SaidaDAO {
             Conexao conexao = new Conexao();
             pstm = conexao.conecta().prepareStatement(cadastraSaida);
             pstm.setDate(1, (java.sql.Date) dataSaida);
-            pstm.setInt(2, saida.getDestino().getCod_destino());           
+            pstm.setInt(2, saida.getDestino().getCod_destino()); 
+            pstm.setInt(3,saida.getIdVeiculo());
             pstm.executeUpdate();
             pstm.close();
             conexao.desconecta();
@@ -233,8 +234,9 @@ public class SaidaDAO {
                 sai = new SaidaModel(); 
                 sai.setDestino(new ArmazemModel(0, "Consumo"));
                 sai.setDataSaida(rs.getDate("dataRetirada"));
-                sai.setIdsaida(rs.getInt("idSaida"));                
-                saidas.add(sai);
+                sai.setIdsaida(rs.getInt("idSaida")); 
+                sai.setVeiculoDescricao(rs.getString("descricao"));               
+                saidas.add(sai);                
             }
             rs.close();
             conexao.desconecta();
