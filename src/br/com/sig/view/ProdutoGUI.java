@@ -68,7 +68,7 @@ public class ProdutoGUI extends javax.swing.JFrame {
     ResultSet rs;
     //public TelaPrincipal principal;
     DefaultTableModel tmProduto = new DefaultTableModel(null, new String[]{"Código", "Produto", "Concentração", "Grupo", "Estoque Minimo", "Estoque Ideal",
-                "Unidade"});
+                "Unidade","locacao"});
     ListSelectionModel lsmProduto;
 
     /** This method is called from within the constructor to

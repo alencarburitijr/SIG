@@ -653,7 +653,7 @@ private void jcb_subFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
             produto.setGrupo(grupoCombo);
             produto.setUnidade(unidadeCombo);
             produto.setSubGrupo(subCombo);
-            produto.setConcentraçao(jtf_locacao.getText().trim());
+            produto.setConcentraçao(jtf_concentração.getText().trim());
             produto.setEstoque_ideal(Integer.parseInt(jtf_estoqueIdeal.getText().trim()));
             produto.setEstoque_minimo(Integer.parseInt(jtf_estoqueMinimo.getText()));
             produto.setLocacao(jtf_locacao.getText().trim());
